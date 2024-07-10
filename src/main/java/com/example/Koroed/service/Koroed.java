@@ -100,11 +100,18 @@ public class Koroed implements SpringLongPollingBot,LongPollingSingleThreadUpdat
                 }else {
                     answer = "Правильно! Твои очки " + ++Scores + "/" + maxScores + "\n" + questions.get(Scores);
                     counter += 2;
-                    Edit(answer, message_id, chat_id);
+                    Thread multi = new Thread(()->{
+                        Edit(answer, message_id, chat_id);
+                    });
+                    multi.start();
+
                 }
             } else {
                 answer = "Неправильно. Твои очки " + Scores + "/" + maxScores + "\n" + questions.get(Scores);
-                Edit(answer, message_id, chat_id);
+                Thread multa = new Thread(()->{
+                    Edit(answer, message_id, chat_id);
+                });
+                multa.start();
             }
 
         }
